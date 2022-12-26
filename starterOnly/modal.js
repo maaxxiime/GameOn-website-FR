@@ -174,5 +174,6 @@ btnFermer.addEventListener("click", fermerModal);
 
 //function fermer modal
 function fermerModal() {
-  modalBody.style.display = "none";
+  modalbg.style.display = "none";
+
 }
