@@ -62,6 +62,16 @@ img {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
+  position: relative;
+}
+.topnav a.active::after {
+  position: absolute;
+  content: "";
+  width: 76%;
+  height: 1px;
+  background-color: #ffffff;
+  bottom: 10px;
+  left: 10px;
 }
 
 .topnav .icon {
@@ -187,6 +197,28 @@ main {
   position: relative;
   color: #fff;
   padding-top: 10px;
+}
+
+.modal-success {
+  display: none;
+  height: 80vh;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.btn-fermer {
+  position: absolute;
+  background-color: #fe142f;
+  color: white;
+  bottom: 10px;
+  right: 30%;
+  border: none;
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .modal-body {
