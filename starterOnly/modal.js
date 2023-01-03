@@ -24,14 +24,8 @@ const last = document.getElementById("last");
 const email = document.getElementById("email");
 const birthDate = document.getElementById("birthdate");
 const quantity = document.getElementById("quantity");
-const locationUn = document.getElementById("location1");
-const locationDeux = document.getElementById("location2");
-const locationTrois = document.getElementById("location3");
-const locationQuatre = document.getElementById("location4");
-const locationCinq = document.getElementById("location5");
-const locationSix = document.getElementById("location6");
+const localisation = document.getElementsByName('location');
 const checkboxUn = document.getElementById("checkbox1");
-//faire boucle avec name
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -54,7 +48,6 @@ function closeModal() {
   }, 700);
 }
 
-
 //fonction validation de formulaire
 form.addEventListener("submit", function validate(e) {
   e.preventDefault();
@@ -64,25 +57,18 @@ form.addEventListener("submit", function validate(e) {
   const emailValue = email.value;
   const birthDateLength = birthDate.value.length;
   const quantityValue = quantity.value;
-  const locationUnChecked = locationUn.checked;
-  const locationDeuxChecked = locationDeux.checked;
-  const locationTroisChecked = locationTrois.checked;
-  const locationQuatreChecked = locationQuatre.checked;
-  const locationCinqChecked = locationCinq.checked;
-  const locationSixChecked = locationSix.checked;
   const checkboxUnChecked = checkboxUn.checked;
-  // variable erreur true / false puis m'en servir pour afficher modal
+  let localisationIsValid = false;
 
   //verifie les conditions de chaque input
-  // enlever un string vide
-  if (firstLength < 2 ) {
+  if (firstLength < 2 || first.value.includes(" ")) {
     formData[0].dataset.errorVisible = true;
   } else {
     console.log("Prenom à deux");
     formData[0].dataset.errorVisible = false;
   }
 
-  if (lastLength < 2) {
+  if (lastLength < 2 || last.value.includes(" ")) {
     formData[1].dataset.errorVisible = true;
   } else {
     console.log("Nom à deux");
@@ -119,17 +105,20 @@ form.addEventListener("submit", function validate(e) {
   }
 
   if (
-    locationUnChecked === true ||
-    locationDeuxChecked === true ||
-    locationTroisChecked === true ||
-    locationQuatreChecked === true ||
-    locationCinqChecked === true ||
-    locationSixChecked === true
+    localisation[0].checked === true ||
+    localisation[1].checked === true ||
+    localisation[2].checked === true ||
+    localisation[3].checked === true ||
+    localisation[4].checked === true ||
+    localisation[5].checked === true
   ) {
     formData[5].dataset.errorVisible = false;
     console.log("Location valide");
+    localisationIsValid = true;
+
   } else {
     formData[5].dataset.errorVisible = true;
+    localisationIsValid = false;
   }
 
   if (checkboxUnChecked === true) {
@@ -141,21 +130,17 @@ form.addEventListener("submit", function validate(e) {
 
   // affiche le message de succé si toutes les conditions sont valide
   if (
-    (firstLength >= 2 &&
-      lastLength >= 2 &&
-      emailValue.includes("@") &&
-      emailValue.includes(".") &&
-      emailValue.length >= 6 &&
-      birthDateLength == 10 &&
-      quantityValue >= 0 &&
-      quantityValue <= 99 &&
-      quantityValue != quantityValue.includes("a") &&
-      locationUnChecked === true) ||
-    locationDeuxChecked === true ||
-    locationTroisChecked === true ||
-    locationQuatreChecked === true ||
-    locationCinqChecked === true ||
-    (locationSixChecked === true && checkboxUnChecked === true)
+    firstLength >= 2 &&
+    lastLength >= 2 &&
+    emailValue.includes("@") &&
+    emailValue.includes(".") &&
+    emailValue.length >= 6 &&
+    birthDateLength == 10 &&
+    quantityValue >= 0 &&
+    quantityValue <= 99 && 
+    quantityValue != quantityValue.includes("a") &&
+    checkboxUnChecked === true &&
+    localisationIsValid === true
   ) {
     console.log("Tous les inputs sont corrects");
 
@@ -167,14 +152,12 @@ form.addEventListener("submit", function validate(e) {
       modalSuccess.style.display = "none";
     }, 5000);
 
-    // faire un reset dses inputs avec une fonction reset
+    form.reset();
+
   } else {
     console.log("Erreur dans un ou plusieurs inputs");
   }
-
-
 });
-
 
 // fermer modal event
 btnFermer.addEventListener("click", fermerModal);
@@ -182,5 +165,4 @@ btnFermer.addEventListener("click", fermerModal);
 //function fermer modal
 function fermerModal() {
   modalbg.style.display = "none";
-
 }
