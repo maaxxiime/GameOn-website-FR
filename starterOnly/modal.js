@@ -31,6 +31,7 @@ const locationQuatre = document.getElementById("location4");
 const locationCinq = document.getElementById("location5");
 const locationSix = document.getElementById("location6");
 const checkboxUn = document.getElementById("checkbox1");
+//faire boucle avec name
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -70,16 +71,18 @@ form.addEventListener("submit", function validate(e) {
   const locationCinqChecked = locationCinq.checked;
   const locationSixChecked = locationSix.checked;
   const checkboxUnChecked = checkboxUn.checked;
+  // variable erreur true / false puis m'en servir pour afficher modal
 
   //verifie les conditions de chaque input
-  if (firstLength <= 1) {
+  // enlever un string vide
+  if (firstLength < 2 ) {
     formData[0].dataset.errorVisible = true;
   } else {
     console.log("Prenom à deux");
     formData[0].dataset.errorVisible = false;
   }
 
-  if (lastLength <= 1) {
+  if (lastLength < 2) {
     formData[1].dataset.errorVisible = true;
   } else {
     console.log("Nom à deux");
@@ -163,9 +166,13 @@ form.addEventListener("submit", function validate(e) {
       modalBody.style.display = "block";
       modalSuccess.style.display = "none";
     }, 5000);
+
+    // faire un reset dses inputs avec une fonction reset
   } else {
     console.log("Erreur dans un ou plusieurs inputs");
   }
+
+
 });
 
 
