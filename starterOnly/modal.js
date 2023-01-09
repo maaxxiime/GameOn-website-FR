@@ -61,15 +61,18 @@ form.addEventListener("submit", function validate(e) {
   let localisationIsValid = false;
 
   //verifie les conditions de chaque input
-  if (firstLength < 2 || first.value.includes(" ")) {
+  // commenter toutes les verification (inferieur à deux et pas égal à vide)
+  if (firstLength < 2 || first.value == "") {
     formData[0].dataset.errorVisible = true;
   } else {
     console.log("Prenom à deux");
     formData[0].dataset.errorVisible = false;
+
   }
 
-  if (lastLength < 2 || last.value.includes(" ")) {
+  if (lastLength < 2 || last.value == "") {
     formData[1].dataset.errorVisible = true;
+
   } else {
     console.log("Nom à deux");
     formData[1].dataset.errorVisible = false;
