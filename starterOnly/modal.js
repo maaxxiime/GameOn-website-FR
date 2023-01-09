@@ -50,6 +50,8 @@ function closeModal() {
 
 //fonction validation de formulaire
 form.addEventListener("submit", function validate(e) {
+
+  // empêche l'action par défaut qui est de réinitialiser le formulaire
   e.preventDefault();
 
   const firstLength = first.value.length;
@@ -60,8 +62,7 @@ form.addEventListener("submit", function validate(e) {
   const checkboxUnChecked = checkboxUn.checked;
   let localisationIsValid = false;
 
-  //verifie les conditions de chaque input
-  // commenter toutes les verification (inferieur à deux et pas égal à vide)
+  // vérifie que firstLength est inférieure à 2 et pas égal à un string vide
   if (firstLength < 2 || first.value == "") {
     formData[0].dataset.errorVisible = true;
   } else {
@@ -69,7 +70,7 @@ form.addEventListener("submit", function validate(e) {
     formData[0].dataset.errorVisible = false;
 
   }
-
+  // vérifie que lastLength est inférieure à 2 et pas égal à un string vide
   if (lastLength < 2 || last.value == "") {
     formData[1].dataset.errorVisible = true;
 
@@ -78,6 +79,7 @@ form.addEventListener("submit", function validate(e) {
     formData[1].dataset.errorVisible = false;
   }
 
+  // vérifie que emailValue comprend un "@" et un "." et que la valeur est supérieure ou égal à 6
   if (
     emailValue.includes("@") &&
     emailValue.includes(".") &&
@@ -89,6 +91,7 @@ form.addEventListener("submit", function validate(e) {
     formData[2].dataset.errorVisible = true;
   }
 
+  // vérifie que birthDateLength à une longueur de 10 
   if (birthDateLength == 10) {
     formData[3].dataset.errorVisible = false;
     console.log("Date valide");
@@ -96,6 +99,7 @@ form.addEventListener("submit", function validate(e) {
     formData[3].dataset.errorVisible = true;
   }
 
+  // vérifie que quantityValue est supérieure ou égal à 0, inférieure ou égal à 99 et qu'il ne comprend pas de lettres
   if (
     quantityValue >= 0 &&
     quantityValue <= 99 &&
@@ -107,6 +111,7 @@ form.addEventListener("submit", function validate(e) {
     formData[4].dataset.errorVisible = true;
   }
 
+  // vérifie qu'une des checkbox localisation est bien cochée
   if (
     localisation[0].checked === true ||
     localisation[1].checked === true ||
@@ -117,6 +122,8 @@ form.addEventListener("submit", function validate(e) {
   ) {
     formData[5].dataset.errorVisible = false;
     console.log("Location valide");
+
+    // passe une variable en true si valide
     localisationIsValid = true;
 
   } else {
@@ -124,6 +131,7 @@ form.addEventListener("submit", function validate(e) {
     localisationIsValid = false;
   }
 
+  // vérifie que checkboxUnChecked est cochée
   if (checkboxUnChecked === true) {
     formData[6].dataset.errorVisible = false;
     console.log("Conditions valide");
@@ -131,7 +139,7 @@ form.addEventListener("submit", function validate(e) {
     formData[6].dataset.errorVisible = true;
   }
 
-  // affiche le message de succé si toutes les conditions sont valide
+  // vérifie si les conditions sont bonne, si oui, affiche le message de succés
   if (
     firstLength >= 2 &&
     lastLength >= 2 &&
@@ -146,7 +154,6 @@ form.addEventListener("submit", function validate(e) {
     localisationIsValid === true
   ) {
     console.log("Tous les inputs sont corrects");
-
     modalBody.style.display = "none";
     modalSuccess.style.display = "flex";
 
@@ -155,6 +162,7 @@ form.addEventListener("submit", function validate(e) {
       modalSuccess.style.display = "none";
     }, 5000);
 
+    // reset les inputs
     form.reset();
 
   } else {
